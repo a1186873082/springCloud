@@ -1,8 +1,6 @@
-package com.example.user.model;
+package com.example.user.DTO;
 
-import java.io.Serializable;
-
-public class User implements Serializable {
+public class UserDTO {
     private String userId;
     private String userName;
     private String password;
