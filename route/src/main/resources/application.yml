@@ -1,0 +1,17 @@
+server:
+  port: 3020
+spring:
+  application:
+    name: api-gateway
+eureka:
+  client:
+    serviceurl:
+      defaultZone: http://peer1:1000/eureka/
+
+zuul.routes.api-a.path: /api-a/**
+zuul.routes.api-a.serviceId: user
+zuul.routes.api-b.path: /api-b/**
+zuul.routes.api-b.serviceId: feign
+
+
+

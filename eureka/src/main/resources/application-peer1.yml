@@ -1,0 +1,17 @@
+server:
+  port: 1000
+
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    register-with-eureka: false # 表示不向注册中心注册
+    fetch-registry: false #注册中心职责维护服务示例，不需要去检索服务，
+    serviceUrl:
+      defaultZone: http://peer2:1002/eureka/
+spring:
+  application:
+    name: eureka-server
+
+
+

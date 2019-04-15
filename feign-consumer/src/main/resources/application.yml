@@ -1,0 +1,23 @@
+server:
+  port: 1005
+spring:
+  application:
+    name: feign
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:1000/eureka
+feign:
+  hystrix:
+    enabled: true
+
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+
+ribbon.ConnectTimeout: 60000
+ribbon.ReadTimeout: 60000
+
+user.ribbon.ConnectTime: 60000
+user.ribbon.ReadTimeout: 60000
+user.ribbon.OkToRetryOnAllOperations: true
+user.ribbon.MaxAutoRetriesNextServer: 2
+user.ribbon.MaxAutoRetries: 1
