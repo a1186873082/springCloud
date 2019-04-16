@@ -3,9 +3,9 @@ package com.example.sso.model;
 import java.io.Serializable;
 
 public class Result implements Serializable {
-    public Integer resultCode;
-    public String resultMsg;
-    public Object resultData;
+    private Integer resultCode;
+    private String resultMsg;
+    private Object resultData;
 
     public Integer getResultCode() {
         return resultCode;
