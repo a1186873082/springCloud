@@ -6,6 +6,7 @@ public class Result implements Serializable {
     private Integer resultCode;
     private String resultMsg;
     private Object resultData;
+    private String token; //身份标识
 
     public Integer getResultCode() {
         return resultCode;
@@ -29,5 +30,13 @@ public class Result implements Serializable {
 
     public void setResultData(Object resultData) {
         this.resultData = resultData;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

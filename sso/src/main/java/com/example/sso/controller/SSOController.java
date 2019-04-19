@@ -39,6 +39,13 @@ public class SSOController {
     }
 
     /**
+     * JWT机制，实现token令牌的创建：JWT:一般用于用户身份验证和数据信息交换
+     */
+
+
+
+
+    /**
      * 简易的cookie跨域解决方案
      */
     @RequestMapping(value = "/test", method = RequestMethod.GET)
