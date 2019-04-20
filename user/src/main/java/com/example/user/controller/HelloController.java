@@ -12,6 +12,8 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -71,6 +73,21 @@ public class HelloController {
         String resultMsg = userService.login(userDTO);
         result.setResultCode(UserConstant.SUCCESS);
         result.setResultMsg(resultMsg);
+        return result;
+    }
+
+    @RequestMapping(value = "/test_session_token", method = RequestMethod.GET)
+    public Result testSessionToken(HttpServletRequest request) throws Exception{
+        Result result = new Result();
+        String token = request.getSession().getId();
+        System.out.println("token is " + token);
+        return result;
+    }
+
+    @RequestMapping(value = "/test_redis", method = RequestMethod.GET)
+    public Result testRedis(@RequestParam("name") String param) throws Exception{
+        Result result = new Result();
+        userService.testRedis(param);
         return result;
     }
 }

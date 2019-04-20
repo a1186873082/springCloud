@@ -2,7 +2,7 @@ server:
   port: 3020
 spring:
   application:
-    name: api-gateway
+    name: route
 eureka:
   client:
     serviceurl:
@@ -13,5 +13,20 @@ zuul.routes.api-a.serviceId: user
 zuul.routes.api-b.path: /api-b/**
 zuul.routes.api-b.serviceId: feign
 
+feign:
+  hystrix:
+    enabled: true
 
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 
+ribbon.ConnectTimeout: 60000
+ribbon.ReadTimeout: 60000
+
+user.ribbon.ConnectTime: 60000
+user.ribbon.ReadTimeout: 60000
+user.ribbon.OkToRetryOnAllOperations: true
+user.ribbon.MaxAutoRetriesNextServer: 2
+user.ribbon.MaxAutoRetries: 1
+zuul:
+  retryable: false
+  routes.user.retryable: false

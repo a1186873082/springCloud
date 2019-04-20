@@ -36,6 +36,11 @@ public class PreFilter extends ZuulFilter {
         return true;
     }
 
+    /**
+     * 过滤器执行的具体逻辑
+     * @return
+     * @throws ZuulException
+     */
     @Override
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
@@ -53,3 +58,4 @@ public class PreFilter extends ZuulFilter {
         return null;
     }
 }
+

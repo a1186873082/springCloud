@@ -28,7 +28,7 @@ public class Result implements Serializable {
         return resultData;
     }
 
-    public void setResultData(Object resultData) {
+    public void setResultData(Object resultData)  {
         this.resultData = resultData;
     }
 

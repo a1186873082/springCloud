@@ -67,4 +67,12 @@ public class UserServiceImpl implements UserService {
             redisService.set("user", userMap);
         }
     }
+
+    @Override
+    public void testRedis(String params) throws Exception {
+        redisService.set(params, params);
+        while(true){
+            System.out.println(redisService.get(params));
+        }
+    }
 }
