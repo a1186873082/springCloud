@@ -1,1 +1,14 @@
+server:
+  port: 1021
+spring:
+  application:
+    name: message
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.example.user.mapper.model
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1000/eureka
 
