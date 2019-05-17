@@ -2,15 +2,24 @@ package com.example.message.controller;
 
 import com.example.message.mapper.model.AricMessage;
 import com.example.message.mapper.model.AricResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import sun.misc.Request;
 
+import java.security.Principal;
+import java.util.Date;
+
 @RestController
 public class WebSocketController {
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
     /**
      * webSocket控制器
      */
@@ -23,6 +32,25 @@ public class WebSocketController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return new AricResponse("welcome," + message.getName() + "!");
+        return new AricResponse("welcome," + message.getName() + "!"+ message.getMsg());
+    }
+
+//    @MessageMapping("/publicChat")
+//    @SendTo("/topic/getResponse")
+//    public AricResponse say1(AricMessage message){
+//        StringBuilder msg=new StringBuilder();
+//        msg.append(message.getName()).append(" -- ")
+//                .append(new Date()).append("\n>>> ")
+//                .append(message.getName()).append('\n');
+//        AricResponse response=new AricResponse(msg.toString());
+//        return response;
+//    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public AricResponse test(@ModelAttribute AricMessage message){
+
+        AricResponse aricResponse = new AricResponse(message.getName());
+        simpMessagingTemplate.convertAndSend("/topic/getResponse", aricResponse);
+        return aricResponse;
     }
 }

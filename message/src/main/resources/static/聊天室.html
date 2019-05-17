@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+        <meta charset="UTF-8"/>
+<title>聊天室</title>
+</head>
+<body>
+<label id="msg" >未连接</label><br/>
+<button id="connect" onclick="connect()">连接</button>
+<button id="disConnect" disabled="disabled" onclick="disConnect()">断开</button>
+<label id="username" ></label>
+<br/>
+<textarea id="getMsg" rows="25" cols="60" disabled="disabled"></textarea><br/>
+<textarea id="sendMsg" rows="3" cols="60"></textarea><br/>
+<button id="send" onclick="sendMsg()" disabled="disabled">发送</button>
+<script src="https://cdn.bootcss.com/sockjs-client/1.3.0/sockjs.min.js"></script>
+        <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+function connect(){
+    var username=prompt("输入用户名");
+    if(username==null||username==""){
+        alert("需输入用户名才能连接");
+    }
+    else{
+        var socket=new SockJS("http://localhost:1021/endpointWisely");
+        stompClient=Stomp.over(socket);
+        stompClient.connect({},function(frame){
+            document.getElementById("username").innerHTML=username;
+            document.getElementById("connect").disabled=true;
+            document.getElementById("disConnect").disabled=false;
+            document.getElementById("send").disabled=false;
+            document.getElementById("msg").innerHTML="连接成功";
+            stompClient.subscribe('/topic/getResponse', function (response){
+                    debugger;
+                var msg=JSON.parse(response.body).msg;
+                document.getElementById("getMsg").append(msg);
+                })
+            },function(error){
+            document.getElementById("msg").innerHTML="连接失败";
+            }); 
+
+    }
+}
+function disConnect(){
+    document.getElementById("username").innerHTML=null;
+    document.getElementById("connect").disabled=false;
+    document.getElementById("disConnect").disabled=true;
+    document.getElementById("send").disabled=true;
+    ocument.getElementById("msg").innerHTML="未连接";
+    if(stompClient!=null){
+        stompClient.disconnect();
+    }
+}
+function sendMsg(){
+    var name=document.getElementById("username").innerHTML;
+    var msg=document.getElementById("sendMsg").value;
+    stompClient.send("/topic/getResponse",{},JSON.stringify({'name':name,'msg':msg}));
+	// stompClient.subscribe("/publicChat", callback);
+}
+
+function callback(res){
+	console.log(res);
+}
+</script>
+</body>
+</html>
