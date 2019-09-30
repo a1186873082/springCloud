@@ -23,5 +23,5 @@ mybatis:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://peer1:1000/eureka
+      defaultZone: http://localhost:1000/eureka
 
