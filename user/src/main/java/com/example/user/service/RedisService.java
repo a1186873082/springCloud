@@ -10,4 +10,11 @@ public interface RedisService {
 
     boolean existRedis(String key) throws Exception;
 
+//    boolean lock(String key, long expire);
+//
+//    boolean unLock(String key);
+
+    boolean lock(String key, String value);
+
+    void unLock(String key, String value);
 }
